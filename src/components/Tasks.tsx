@@ -1,15 +1,15 @@
-import { Notepad, PlusCircle } from 'phosphor-react';
-import { useState } from 'react';
-import { Task } from './Task';
-import styles from './Tasks.module.css';
+import { Notepad, PlusCircle } from 'phosphor-react'
+import { FormEvent, useState } from 'react'
+import { Task } from './Task'
+import styles from './Tasks.module.css'
 
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from 'uuid'
 
 type Task = {
-  id: string;
-  isFinished: boolean;
-  content: string;
-};
+  id: string
+  isFinished: boolean
+  content: string
+}
 
 const initialTasks = [
   {
@@ -27,46 +27,47 @@ const initialTasks = [
     isFinished: true,
     content: 'Buscar o óculos',
   },
-];
+]
 
 export function Tasks() {
-  const [tasks, setTasks] = useState<Task[]>(initialTasks);
-  const [newTask, setNewTask] = useState('');
+  const [tasks, setTasks] = useState<Task[]>(initialTasks)
+  const [newTask, setNewTask] = useState('')
 
   function handleToggleCompleteTask(id: string) {
     const newTasks = tasks.map(task => {
       if (task.id === id) {
-        task.isFinished = !task.isFinished;
+        task.isFinished = !task.isFinished
       }
-      return task;
-    });
-    setTasks(newTasks);
+      return task
+    })
+    setTasks(newTasks)
   }
 
-  function handleCreateNewTask() {
+  function handleCreateNewTask(event: FormEvent) {
+    event.preventDefault()
     const taskToAdd = {
       id: uuid(),
       content: newTask,
       isFinished: false,
-    };
+    }
 
-    setTasks([...tasks, taskToAdd]);
-    setNewTask('');
+    setTasks([...tasks, taskToAdd])
+    setNewTask('')
   }
 
   function handleDeleteTask(id: string) {
-    const tasksWithoutDeletedOne = tasks.filter(task => task.id !== id);
+    const tasksWithoutDeletedOne = tasks.filter(task => task.id !== id)
 
-    setTasks(tasksWithoutDeletedOne);
+    setTasks(tasksWithoutDeletedOne)
   }
 
-  const tasksCreated = tasks.length;
+  const tasksCreated = tasks.length
 
-  const tasksComplets = tasks.filter(task => task.isFinished).length;
+  const tasksComplets = tasks.filter(task => task.isFinished).length
 
   return (
     <>
-      <div className={styles.newTask}>
+      <form className={styles.newTask} onSubmit={handleCreateNewTask}>
         <input
           type="text"
           placeholder="Adicione uma nova tarefa"
@@ -75,12 +76,13 @@ export function Tasks() {
         />
         <button
           className={styles.buttonContainer}
-          onClick={handleCreateNewTask}
+          // onClick={handleCreateNewTask}
+          type="submit"
         >
           <span>Criar</span>
           <PlusCircle size={16} />
         </button>
-      </div>
+      </form>
       <main className={styles.main}>
         <header className={styles.header}>
           <div className={styles.taskCreated}>
@@ -117,5 +119,5 @@ export function Tasks() {
         )}
       </main>
     </>
-  );
+  )
 }
