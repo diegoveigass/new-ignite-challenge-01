@@ -74,11 +74,7 @@ export function Tasks() {
           value={newTask}
           onChange={event => setNewTask(event.target.value)}
         />
-        <button
-          className={styles.buttonContainer}
-          // onClick={handleCreateNewTask}
-          type="submit"
-        >
+        <button className={styles.buttonContainer} type="submit">
           <span>Criar</span>
           <PlusCircle size={16} />
         </button>

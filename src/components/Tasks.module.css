@@ -105,3 +105,30 @@
   display: block;
   line-height: 1.4;
 }
+
+@media (max-width: 375px) {
+  main {
+    margin-top: 1rem !important;
+  }
+
+  .emptyTasks {
+    padding: 2rem 0.5rem;
+  }
+
+  .newTask,
+  main {
+    padding: 0 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 768px) {
+  .newTask,
+  main {
+    padding: 0 1rem;
+  }
+}
